@@ -27,8 +27,8 @@ Estimate of time needed to complete: 4 hours
 
 Start time: 1:45
 
-Finish time: _____
+Finish time: 8:30
 
-Actual time needed to complete: _____
+Actual time needed to complete: Under 7 hours
 
 <!-- Const API_KEY = process.env.API_KEY -->
