@@ -33,24 +33,23 @@ class App extends React.Component {
   getCityData = async (e) => {
     e.preventDefault();
     // retreiving data from API
-    // try {
-    let cityData = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${API_KEY}&q=${this.state.searchQuery}&format=json`);
-    // console.log(cityData.data[0]);
-    this.setState({
-      lat: cityData.data[0].lat,
-      lon: cityData.data[0].lon,
-      name: cityData.data[0].display_name,
-    });
-  } //catch (error) {
-  //   console.log('error', error);
-  //   console.log('error.response', error.response);
-  //   this.setState({
-  //     error: true,
-  //     errorMessage: `An error occured: ${error.response.status}`
-  //   })
-  // }
-  // console.log(this.state.cityData)
-  // }
+    try {
+      let cityData = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${API_KEY}&q=${this.state.searchQuery}&format=json`);
+      // console.log(cityData.data[0]);
+      this.setState({
+        lat: cityData.data[0].lat,
+        lon: cityData.data[0].lon,
+        name: cityData.data[0].display_name,
+      });
+    } catch (error) {
+      console.log('error', error);
+      console.log('error.response', error.response);
+      this.setState({
+        error: true,
+        errorMessage: `An error occured: ${error.response.status}`
+      })
+    }
+  };
 
   render() {
     // console.log(this.state);
@@ -58,12 +57,13 @@ class App extends React.Component {
     return (
       <>
         <Header />
-        <Main 
-        lat={this.state.lat} 
-        lon={this.state.lon} 
-        name={this.state.name} 
-        submit={this.getCityData} 
-        handleCity={this.handleCityInput}/>
+        <Main
+          lat={this.state.lat}
+          lon={this.state.lon}
+          name={this.state.name}
+          submit={this.getCityData}
+          handleCity={this.handleCityInput} 
+          errorMessage={this.state.error}/>
         <Footer />
       </>
     )
