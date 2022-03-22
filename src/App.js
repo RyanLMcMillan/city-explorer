@@ -14,7 +14,11 @@ class App extends React.Component {
     super(props);
     this.state = {
       // city: '',
-      cityData: {},
+      // cityData: {},
+      lat: '',
+      lon: '',
+      name: '',
+      searchQuery: '',
       error: false,
       errorMessage: '',
     };
@@ -22,38 +26,44 @@ class App extends React.Component {
 
   handleCityInput = (e) => {
     this.setState({
-      city: e.target.value
+      searchQuery: e.target.value
     });
   };
 
   getCityData = async (e) => {
     e.preventDefault();
     // retreiving data from API
-    let cityData = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${API_KEY}&q=${this.state.city}&format=json`);
+    // try {
+    let cityData = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${API_KEY}&q=${this.state.searchQuery}&format=json`);
     // console.log(cityData.data[0]);
     this.setState({
-      cityData: cityData.data[0]
+      lat: cityData.data[0].lat,
+      lon: cityData.data[0].lon,
+      name: cityData.data[0].display_name,
     });
-    console.log(this.state.cityData)
-  }
+  } //catch (error) {
+  //   console.log('error', error);
+  //   console.log('error.response', error.response);
+  //   this.setState({
+  //     error: true,
+  //     errorMessage: `An error occured: ${error.response.status}`
+  //   })
+  // }
+  // console.log(this.state.cityData)
+  // }
 
   render() {
     // console.log(this.state);
+    // let cityList = this.state.cityData.map(())
     return (
       <>
         <Header />
-        <Main />
-        <main>
-          <form onSubmit={this.getCityData}>
-            <label>Pick a city
-              <input type="text" onInput={this.handleCityInput} name="city" />
-            </label>
-            <button type="submit">Explore!</button>
-          </form>
-        </main>
-        <p>City Name: {this.state.cityData.display_name}</p>
-        <p>lon: {this.state.cityData.lon}</p>
-        <p>Lat: {this.state.cityData.lat}</p>
+        <Main 
+        lat={this.state.lat} 
+        lon={this.state.lon} 
+        name={this.state.name} 
+        submit={this.getCityData} 
+        handleCity={this.handleCityInput}/>
         <Footer />
       </>
     )
