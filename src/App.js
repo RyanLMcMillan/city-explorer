@@ -42,6 +42,7 @@ class App extends React.Component {
         lon: cityData.data[0].lon,
         name: cityData.data[0].display_name,
       });
+      await this.getForcast(cityData.data[0].display_name);
     } catch (error) {
       console.log('error', error);
       console.log('error.response', error.response);
@@ -52,13 +53,15 @@ class App extends React.Component {
     }
   };
 
-  getForcast = async (e) => {
-    e.preventDefault();
-    let forcastData = await axios.get(`${process.env.REACT_APP_SERVER}/weather?city_name=${this.state.name}`)
+  getForcast = async (city_name) => {
+    // e.preventDefault();
+    let forcastData = await axios.get(`${process.env.REACT_APP_SERVER}/weather?city_name=${this.state.city_name}`)
     this.setState({
       forcast: forcastData.data,
     })
-    
+    const {lat,lon} = forcastData.data
+    console.log(await this.getWeatherFromLocation(lat,lon))
+
   }
 
   getWeatherFromLocation = async (lat, lon) => {
