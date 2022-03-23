@@ -19,6 +19,7 @@ class App extends React.Component {
       lon: '',
       name: '',
       searchQuery: '',
+      forcast: '',
       error: false,
       errorMessage: '',
     };
@@ -50,6 +51,20 @@ class App extends React.Component {
       })
     }
   };
+
+  getForcast = async (e) => {
+    e.preventDefault();
+    let forcastData = await axios.get(`${process.env.REACT_APP_SERVER}/weather?city_name=${this.state.name}`)
+    this.setState({
+      forcast: forcastData.data,
+    })
+    
+  }
+
+  getWeatherFromLocation = async (lat, lon) => {
+    let latLon = await axios.get(`${process.env.REACT_APP_SERVER}/weather?lat=${lat}&lon=${lon}`)
+    return latLon.data;
+  }
 
   render() {
     // console.log(this.state);

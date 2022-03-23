@@ -32,7 +32,7 @@ class Main extends React.Component {
         <p>lon: {this.props.lon}</p>
         <p>{errorContent}</p>
         <Map
-          url={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_API_KEY}&center=${parseLat},${parseLon}&zoom=12`} name={this.props.name} />
+          url={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_API_KEY}&center=${parseLat},${parseLon}&zoom=10`} name={this.props.name} />
       </>
     )
   }

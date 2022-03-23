@@ -21,7 +21,7 @@ This application will allow a user to input a city they desire to render providi
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 
 ## Time Estimates
-Name of feature: Trello Day 1
+Name of feature: Location map rendering
 
 Estimate of time needed to complete: 4 hours
 
@@ -31,4 +31,13 @@ Finish time: 8:30
 
 Actual time needed to complete: Under 7 hours
 
+Name of feature: Weatherbit functionality
+
+Estimate of time needed to complete: 5 hours
+
+Start time: 2 pm
+
+Finish time: 
+
+Actual time needed to complete: 
 <!-- Const API_KEY = process.env.API_KEY -->
