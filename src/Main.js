@@ -4,6 +4,7 @@ import React from 'react';
 // import Footer from './Footer';
 import Map from './Map.js';
 
+
 class Main extends React.Component {
   render() {
     let parseLat = parseInt(this.props.lat)
