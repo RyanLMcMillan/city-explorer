@@ -4,7 +4,11 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import axios from 'axios';
+// import {Card, CardGroup} from 'react-bootstrap';
+// import Button from 'react-bootstrap/button'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import Weather from './Weather';
 
 const API_KEY = process.env.REACT_APP_API_KEY
 // console.log(API_KEY);
@@ -31,6 +35,8 @@ class App extends React.Component {
     });
   };
 
+
+
   getCityData = async (e) => {
     e.preventDefault();
     // retreiving data from API
@@ -53,21 +59,26 @@ class App extends React.Component {
     }
   };
 
-  getForcast = async (city_name) => {
+  getForcast = async () => {
     // e.preventDefault();
-    let forcastData = await axios.get(`${process.env.REACT_APP_SERVER}/weather?city_name=${this.state.city_name}`)
-    this.setState({
-      forcast: forcastData.data,
-    })
-    const {lat,lon} = forcastData.data
-    console.log(await this.getWeatherFromLocation(lat,lon))
+    try {
+      let weatherUrl = `${process.env.REACT_APP_SERVER}/weather?city_name=${this.state.searchQuery}`;
+      console.log(weatherUrl);
+      let forcastData = await axios.get(weatherUrl);
+      this.setState({
+        forcast: forcastData.data,
+      })
+      const { lat, lon } = forcastData.data
+      console.log(await this.getWeatherFromLocation(lat, lon))
+    } catch {
 
+    }
   }
 
-  getWeatherFromLocation = async (lat, lon) => {
-    let latLon = await axios.get(`${process.env.REACT_APP_SERVER}/weather?lat=${lat}&lon=${lon}`)
-    return latLon.data;
-  }
+  // getWeatherFromLocation = async (lat, lon) => {
+  //   let latLon = await axios.get(`${process.env.REACT_APP_SERVER}/weather?lat=${lat}&lon=${lon}`)
+  //   return latLon.data;
+  // }
 
   render() {
     // console.log(this.state);
@@ -75,13 +86,18 @@ class App extends React.Component {
     return (
       <>
         <Header />
+        <Weather
+          weather={this.state.forcast.descriptionOne}
+          name={this.state.forcast.cityName}
+          date={this.state.forcast.dateOne}
+        />
         <Main
           lat={this.state.lat}
           lon={this.state.lon}
           name={this.state.name}
           submit={this.getCityData}
-          handleCity={this.handleCityInput} 
-          errorMessage={this.state.error}/>
+          handleCity={this.handleCityInput}
+          errorMessage={this.state.error} />
         <Footer />
       </>
     )
