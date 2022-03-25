@@ -9,6 +9,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Weather from './Weather';
+import Movie from './Movie';
 
 const API_KEY = process.env.REACT_APP_API_KEY
 // console.log(API_KEY);
@@ -24,6 +25,7 @@ class App extends React.Component {
       name: '',
       searchQuery: '',
       forcast: '',
+      movieArray: [],
       error: false,
       errorMessage: '',
     };
@@ -43,6 +45,7 @@ class App extends React.Component {
     try {
       let cityData = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${API_KEY}&q=${this.state.searchQuery}&format=json`);
       // console.log(cityData.data[0]);
+      this.getMovieData();
       this.setState({
         lat: cityData.data[0].lat,
         lon: cityData.data[0].lon,
@@ -75,6 +78,23 @@ class App extends React.Component {
     }
   }
 
+  getMovieData = async () => {
+    try {
+      let movieUrl = `${process.env.REACT_APP_SERVER}/movies?keyword=${this.state.searchQuery}` // this is getting sent to the backend
+      console.log(movieUrl);
+      let movieData = await axios.get(movieUrl);
+      console.log(movieData);
+      this.setState({
+        movieArray: movieData.data
+      })
+      // console.log(this.state.movieArray);
+    } catch (error) {
+      this.setState({
+        error: true,
+        errorMessage: `An error Occured: ${error.response.status}`
+      })
+    }
+  }
   // getWeatherFromLocation = async (lat, lon) => {
   //   let latLon = await axios.get(`${process.env.REACT_APP_SERVER}/weather?lat=${lat}&lon=${lon}`)
   //   return latLon.data;
@@ -98,6 +118,15 @@ class App extends React.Component {
           submit={this.getCityData}
           handleCity={this.handleCityInput}
           errorMessage={this.state.error} />
+        <Movie
+          movieArr={this.state.movieArray}
+          // title={this.state.movieArray.title}
+          // overview={this.state.movieArray.overview}
+          // imgUrl={this.state.movieArray.imgUrl}
+          // avgVotes={this.state.movieArray.avgVotes}
+          // popularity={this.state.movieArray.popularity}
+          // releaseDate={this.state.movieArray.releaseDate}
+          />
         <Footer />
       </>
     )
