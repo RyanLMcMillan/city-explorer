@@ -45,13 +45,11 @@ class App extends React.Component {
     try {
       let cityData = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${API_KEY}&q=${this.state.searchQuery}&format=json`);
       // console.log(cityData.data[0]);
-      this.getMovieData();
       this.setState({
         lat: cityData.data[0].lat,
         lon: cityData.data[0].lon,
         name: cityData.data[0].display_name,
       });
-      await this.getForcast(cityData.data[0].display_name);
     } catch (error) {
       console.log('error', error);
       console.log('error.response', error.response);
@@ -60,6 +58,8 @@ class App extends React.Component {
         errorMessage: `An error occured: ${error.response.status}`
       })
     }
+    await this.getForcast(this.state.name);
+    this.getMovieData();
   };
 
   getForcast = async () => {
