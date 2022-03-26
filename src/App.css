@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+/* .movieCard{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: auto;
+} */

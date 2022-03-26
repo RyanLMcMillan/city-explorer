@@ -1,0 +1,40 @@
+.image{
+  width: 100%;
+  height: 50%;
+}
+
+.overviewText{
+  margin: 15px;
+  overflow: scroll;
+  height: 150px;
+}
+
+#movieDiv{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: auto;
+  animation: 10000ms ease-in-out infinite color-change;
+}
+@keyframes color-change {
+  0% {
+    background-color: #cdb4db;
+  }
+  20% {
+    background-color: #ffc8dd;
+  }
+  40% {
+    background-color: #ffafcc;
+  }
+  60% {
+    background-color: #bde0fe;
+  }
+  80% {
+    background-color: #a2d2ff;
+  }
+  100% {
+    background-color: #cdb4db;
+  }
+}
+
+
