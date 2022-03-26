@@ -1,0 +1,30 @@
+#mainDiv{
+  margin: auto;
+  width: 100%;
+  /* border: 5px solid #FFFF00; */
+  padding: 10px;
+  text-align: center;
+  /* background-color: rgb(168, 102, 230); */
+  background: red;
+  animation: 10000ms ease-in-out infinite color-change;
+}
+@keyframes color-change {
+  0% {
+    background-color: #cdb4db;
+  }
+  20% {
+    background-color: #ffc8dd;
+  }
+  40% {
+    background-color: #ffafcc;
+  }
+  60% {
+    background-color: #bde0fe;
+  }
+  80% {
+    background-color: #a2d2ff;
+  }
+  100% {
+    background-color: #cdb4db;
+  }
+}

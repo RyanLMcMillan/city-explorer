@@ -1,7 +1,6 @@
-// 'use strict';
-// import Modal from 'react-bootstrap/Modal';
-import {Card} from 'react-bootstrap';
 import React from 'react';
+import {Card} from 'react-bootstrap';
+import './Weather.css'
 class Weather extends React.Component {
   render() {
     // let forcastResults = this.props.forcastData.map((weather, index) => {
@@ -15,14 +14,13 @@ class Weather extends React.Component {
     //   );
     // });
     return (
-      <>
+      <div id="weatherDiv">
         <Card>
-          <Card.Title>{this.props.name}
-          </Card.Title>
+          <Card.Title>{this.props.name}</Card.Title>
             <Card.Text>{this.props.date}</Card.Text>
             <Card.Text>{this.props.weather}</Card.Text>
         </Card>
-      </>
+      </div>
     )
   };
 }

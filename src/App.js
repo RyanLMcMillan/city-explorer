@@ -51,8 +51,8 @@ class App extends React.Component {
         name: cityData.data[0].display_name,
       });
     } catch (error) {
-      console.log('error', error);
-      console.log('error.response', error.response);
+      // console.log('error', error);
+      // console.log('error.response', error.response);
       this.setState({
         error: true,
         errorMessage: `An error occured: ${error.response.status}`
@@ -71,8 +71,8 @@ class App extends React.Component {
       this.setState({
         forcast: forcastData.data,
       })
-      const { lat, lon } = forcastData.data
-      console.log(await this.getWeatherFromLocation(lat, lon))
+      // const { lat, lon } = forcastData.data
+      // console.log(await this.getWeatherFromLocation(lat, lon))
     } catch {
 
     }
@@ -81,9 +81,9 @@ class App extends React.Component {
   getMovieData = async () => {
     try {
       let movieUrl = `${process.env.REACT_APP_SERVER}/movies?keyword=${this.state.searchQuery}` // this is getting sent to the backend
-      console.log(movieUrl);
+      // console.log(movieUrl);
       let movieData = await axios.get(movieUrl);
-      console.log(movieData);
+      // console.log(movieData);
       this.setState({
         movieArray: movieData.data
       })
@@ -95,18 +95,13 @@ class App extends React.Component {
       })
     }
   }
-  // getWeatherFromLocation = async (lat, lon) => {
-  //   let latLon = await axios.get(`${process.env.REACT_APP_SERVER}/weather?lat=${lat}&lon=${lon}`)
-  //   return latLon.data;
-  // }
 
   render() {
     // console.log(this.state);
-    // let cityList = this.state.cityData.map(())
     return (
       <>
         <Header />
-        <Weather
+        <Weather 
           weather={this.state.forcast.descriptionOne}
           name={this.state.forcast.cityName}
           date={this.state.forcast.dateOne}
